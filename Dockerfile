@@ -10,6 +10,10 @@ COPY package*.json ./
 RUN npm install
 COPY index.html vite.config.js ./
 COPY src ./src
+ENV VITE_API_URL=/api/v1
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+COPY package*.json ./
+RUN npm install
 RUN npm run build
 
 # ---- 2. backend + static frontend ---------------------------------------------------------
