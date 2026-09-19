@@ -61,3 +61,4 @@ export async function processPDF(file, onProgress = () => {}) {
     throw error;
   }
 }
+
