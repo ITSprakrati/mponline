@@ -9,75 +9,105 @@ The AI prepares and assists. **The human examiner makes the final academic call.
 
 ---
 
-## System Architecture
-
-EXAM CONTEXT
-Question Paper + Marking Scheme
-            +
-LARGE ANSWER-SCRIPT BUNDLE
-            │
-            ▼
-┌──────────────────────────────┐
-│  AI EXAM UNDERSTANDING       │
-│                              │
-│  Question                    │
-│  Criteria                    │
-│  Student Answer              │
-│  Document / Handwriting      │
-└──────────────┬───────────────┘
-               ▼
-┌──────────────────────────────┐
-│  AI COPY CATEGORISATION      │
-│                              │
-│  HIGH MATCH                  │
-│  PARTIAL MATCH               │
-│  REVIEW REQUIRED             │
-│                              │
-│  AI DOES NOT GIVE THE MARK   │
-└──────────────┬───────────────┘
-               ▼
-      ORGANISED EXAMINER
-         WORK QUEUES
-               │
-               ▼
-┌──────────────────────────────┐
-│      HUMAN EXAMINER          │
-│                              │
-│ Reads answer                 │
-│ Checks marking scheme        │
-│ Makes academic judgement     │
-│ Records actual mark          │
-└──────────────┬───────────────┘
-               ▼
-       CHECKED COPY
-         RE-UPLOAD
-               │
-               ▼
-┌──────────────────────────────┐
-│     VERIFICATION / QA        │
-│                              │
-│ Unchecked answers            │
-│ Missing marks                │
-│ Invalid marks                │
-│ Section totals               │
-│ Grand total                  │
-│ Completeness                 │
-│ Unusual scoring signals      │
-└──────────────┬───────────────┘
-               │
-        ┌──────┴──────┐
-        ▼             ▼
-    VERIFIED      REVIEW SIGNAL
-        │             │
-        │             ▼
-        │        MODERATION
-        │             │
-        └──────┬──────┘
-               ▼
-            RESULT
-               │
-               ▼
-     ANALYTICS + AUDIT
+                         ┌──────────────────────┐
+                         │     INSTITUTION      │
+                         │                      │
+                         │ Question Paper       │
+                         │ Marking Scheme       │
+                         │ Answer Scripts       │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+                    ┌──────────────────────────────┐
+                    │     DOCUMENT INTAKE          │
+                    │                              │
+                    │ PDF / Image / Scan Upload    │
+                    │ Bundle Processing             │
+                    └──────────────┬───────────────┘
+                                   │
+                                   ▼
+                    ┌──────────────────────────────┐
+                    │   DOCUMENT INTELLIGENCE      │
+                    │                              │
+                    │ OCR                         │
+                    │ Page / Question Detection    │
+                    │ Answer Region Detection      │
+                    │ Handwriting Assistance       │
+                    └──────────────┬───────────────┘
+                                   │
+                                   ▼
+                    ┌──────────────────────────────┐
+                    │    AI EXAM UNDERSTANDING     │
+                    │                              │
+                    │ Question Meaning             │
+                    │ Expected Answer              │
+                    │ Marking Criteria              │
+                    │ Student Answer Meaning        │
+                    └──────────────┬───────────────┘
+                                   │
+                                   ▼
+                    ┌──────────────────────────────┐
+                    │   AI COPY CATEGORISATION     │
+                    │                              │
+                    │ HIGH MATCH                   │
+                    │ PARTIAL MATCH                │
+                    │ REVIEW REQUIRED              │
+                    │                              │
+                    │ NO FINAL MARK BY AI           │
+                    └──────────────┬───────────────┘
+                                   │
+                                   ▼
+              ┌────────────────────────────────────────────┐
+              │           HUMAN EXAMINER WORKSPACE         │
+              │                                            │
+              │  Evaluation Lens                            │
+              │                                            │
+              │  Question → Student Answer → Criteria      │
+              │                                            │
+              │              ↓                             │
+              │                                            │
+              │       HUMAN ACADEMIC MARK                  │
+              └───────────────────┬────────────────────────┘
+                                  │
+                                  ▼
+                    ┌──────────────────────────────┐
+                    │    CHECKED COPY RE-UPLOAD    │
+                    └──────────────┬───────────────┘
+                                   │
+                                   ▼
+                    ┌──────────────────────────────┐
+                    │       VERIFICATION / QA      │
+                    │                              │
+                    │ Completeness                 │
+                    │ Mark validity               │
+                    │ Section totals              │
+                    │ Grand total                 │
+                    │ Scoring anomalies            │
+                    └──────────────┬───────────────┘
+                                   │
+                         ┌─────────┴─────────┐
+                         │                   │
+                         ▼                   ▼
+                   ┌───────────┐      ┌─────────────┐
+                   │ VERIFIED  │      │ REVIEW      │
+                   │           │      │ SIGNAL      │
+                   └─────┬─────┘      └──────┬──────┘
+                         │                    │
+                         │                    ▼
+                         │             ┌────────────┐
+                         │             │ MODERATION │
+                         │             └─────┬──────┘
+                         │                   │
+                         └─────────┬─────────┘
+                                   ▼
+                              ┌──────────┐
+                              │ RESULT   │
+                              └────┬─────┘
+                                   │
+                                   ▼
+                         ┌──────────────────┐
+                         │ ANALYTICS + AUDIT│
+                         └──────────────────┘
 
 ### Service topology
 
